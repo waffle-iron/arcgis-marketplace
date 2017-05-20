@@ -85,4 +85,4 @@ class GroupiewTests(BaseViewTests):
             self.reverse('group-detail', args=('test',))
         )
 
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
