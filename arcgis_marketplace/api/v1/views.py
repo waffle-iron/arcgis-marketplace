@@ -1,3 +1,4 @@
+from rest_framework import status
 from rest_framework import viewsets
 from rest_framework.decorators import detail_route
 from rest_framework.decorators import list_route
@@ -88,7 +89,6 @@ class GroupViewSet(mixins.ArcgisAPIMixin,
                    mixins.ArcgisPaginationMixin,
                    viewsets.ViewSet):
 
-    lookup_value_regex = '[0-9a-f]{32}'
     permission_classes = (permissions.Signed,)
 
     @offset_pagination
@@ -110,6 +110,7 @@ class GroupViewSet(mixins.ArcgisAPIMixin,
 
     def destroy(self, request, pk=None):
         self.account.api.delete_group(pk)
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
     @detail_route(methods=['post'])
     def add(self, request, pk=None):
