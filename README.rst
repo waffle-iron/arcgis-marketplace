@@ -1,0 +1,74 @@
+Django Arcgis Marketplace
+=========================
+
+|Pypi| |Wheel| |Build Status| |Codecov| |Code Climate|
+
+
+Arcgis marketplace application.
+
+Dependencies
+------------
+
+* Python ≥ 3.4
+* Django ≥ 1.10
+* Postgres
+
+
+Installation
+------------
+
+Install last stable version from Pypi.
+
+.. code:: sh
+
+    pip install arcgis-marketplace
+
+
+Add ``arcgis_marketplace`` to your INSTALLED_APPS setting.
+
+.. code:: python
+
+    INSTALLED_APPS = (
+        ...
+        'arcgis_marketplace.apps.ArcgisMarketplaceAppConfig',
+    )
+
+Hook the Django urls into your URLconf.
+
+.. code:: python
+
+    from django.conf.urls import include
+    from django.conf.urls import url
+
+    urlpatterns = [
+        url(r'^', include(
+            'arcgis_marketplace.urls',
+            namespace='arcgis-marketplace')),
+
+        url(r'^', include(
+            'arcgis_marketplace.api.urls',
+            namespace='arcgis-marketplace-api'))
+    ]
+
+Apply migrations.
+
+.. code:: python
+
+    python manage.py migrate
+
+
+.. |Pypi| image:: https://img.shields.io/pypi/v/arcgis-marketplace.svg
+   :target: https://pypi.python.org/pypi/arcgis-marketplace
+
+.. |Wheel| image:: https://img.shields.io/pypi/wheel/arcgis-marketplace.svg
+   :target: https://pypi.python.org/pypi/arcgis-marketplace
+
+.. |Build Status| image:: https://travis-ci.org/flavors/arcgis-marketplace.svg?branch=master
+   :target: https://travis-ci.org/flavors/arcgis-marketplace
+
+.. |Codecov| image:: https://img.shields.io/codecov/c/github/flavors/arcgis-marketplace.svg
+   :target: https://codecov.io/gh/flavors/arcgis-marketplace
+
+.. |Code Climate| image:: https://codeclimate.com/github/flavors/arcgis-marketplace/badges/gpa.svg
+   :target: https://codeclimate.com/github/flavors/arcgis-marketplace
+
