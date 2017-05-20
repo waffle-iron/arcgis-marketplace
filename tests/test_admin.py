@@ -8,6 +8,7 @@ from arcgis_marketplace import models
 class MockRequest:
     pass
 
+
 request = MockRequest()
 
 
