@@ -3,6 +3,7 @@ from rest_framework.settings import api_settings
 
 
 class ArcgisOffsetPagination(api_settings.DEFAULT_PAGINATION_CLASS):
+    page_size = api_settings.PAGE_SIZE
 
     def get_page_size(self, request):
         if isinstance(self, pagination.LimitOffsetPagination):
