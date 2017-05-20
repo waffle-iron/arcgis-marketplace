@@ -53,17 +53,21 @@ class SelfViewSet(mixins.ArcgisAPIMixin,
     def list(self, request, *args, **kwargs):
         return Response(self.account.self())
 
-    @list_route(methods=['get'])
-    @offset_pagination
-    def roles(self, request, *args, **kwargs):
-        data = self.account.api.self_roles(**request.pagination_params)
+    def get_self_response(self, resource, request, *args, **kwargs):
+        data = getattr(self.account.api, "self_{}".format(resource))(
+            **request.pagination_params
+        )
         return self.get_paginated_response(data, request)
 
     @list_route(methods=['get'])
     @offset_pagination
+    def roles(self, request, *args, **kwargs):
+        return self.get_self_response('roles', request, *args, **kwargs)
+
+    @list_route(methods=['get'])
+    @offset_pagination
     def users(self, request, *args, **kwargs):
-        data = self.account.api.self_users(**request.pagination_params)
-        return self.get_paginated_response(data, request)
+        return self.get_self_response('users', request, *args, **kwargs)
 
 
 class ProductViewSet(viewsets.ModelViewSet):
