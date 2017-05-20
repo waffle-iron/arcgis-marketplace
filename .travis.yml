@@ -1,0 +1,18 @@
+language: python
+services:
+  - postgresql
+
+python:
+  - '3.4'
+  - '3.5'
+  - '3.6'
+
+install:
+  - pip install tox tox-travis
+
+script:
+  - tox
+
+after_success:
+  - pip install codecov
+  - codecov
