@@ -6,7 +6,7 @@ from . import views
 app_name = 'arcgis_marketplace.api.v1'
 router = SimpleRouter(trailing_slash=False)
 
-router.register(r'products', views.ProductViewSet)
+router.register(r'products', views.ProductViewSet, base_name='product')
 router.register(r'accounts', views.AccountViewSet)
 router.register(r'self', views.SelfViewSet, base_name='self')
 router.register(r'me', views.MeViewSet, base_name='me')
