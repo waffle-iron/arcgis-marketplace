@@ -10,6 +10,9 @@ python:
   - '3.5'
   - '3.6'
 
+before_script:
+  - psql -U postgres -c 'CREATE DATABASE test;'
+
 install:
   - pip install tox tox-travis
 
