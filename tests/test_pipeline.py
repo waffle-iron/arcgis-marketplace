@@ -31,3 +31,6 @@ class PipelineTests(TestCase):
 
         update_token_expiration(account, social_auth)
         self.assertFalse(account.is_expired)
+
+    def test_update_token_expiration_missing_account(self):
+        update_token_expiration(account=None)
