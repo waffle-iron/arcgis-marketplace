@@ -43,6 +43,7 @@ DEFAULT_SETTINGS = dict(
         ),
         'DEFAULT_PAGINATION_CLASS':
         'core_flavor.api.pagination.PaginationSerializer',
+        'PAGE_SIZE': 10,
         'TEST_REQUEST_DEFAULT_FORMAT': 'json'
     },
     MIDDLEWARE=[
