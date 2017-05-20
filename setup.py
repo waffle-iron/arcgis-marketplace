@@ -17,7 +17,7 @@ def get_version(package):
 
 
 setup(
-    name='arcgis-marketplace',
+    name='django-arcgis-marketplace',
     version=get_version('arcgis_marketplace'),
     license='MIT',
     description='Arcgis marketplace app.',

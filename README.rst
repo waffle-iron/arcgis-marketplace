@@ -21,7 +21,7 @@ Install last stable version from Pypi.
 
 .. code:: sh
 
-    pip install arcgis-marketplace
+    pip install django-arcgis-marketplace
 
 
 Add ``arcgis_marketplace`` to your INSTALLED_APPS setting.
