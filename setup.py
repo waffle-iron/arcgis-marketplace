@@ -57,6 +57,7 @@ setup(
         'Django>=1.10',
         'arcgis-sdk>=0.0.5',
         'core-flavor>=0.0.8',
+        'coverage>=4.4',
         'django-oauth-toolkit>=0.12.0',
         'django-paypal>=0.3.6',
         'django-polymorphic>=1.2',
