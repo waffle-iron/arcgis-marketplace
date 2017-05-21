@@ -73,6 +73,7 @@ setup(
     ],
     package_data={
         'arcgis_marketplace': [
+            'templates/arcgis_marketplace/*',
             'locale/*/LC_MESSAGES/django.po',
             'locale/*/LC_MESSAGES/django.mo'
         ]
