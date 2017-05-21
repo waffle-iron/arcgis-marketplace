@@ -99,7 +99,7 @@ class GroupViewSet(mixins.ArcgisAPIMixin,
     def create(self, request, *args, **kwargs):
         return Response(
             self.account.api.create_group(**request.data),
-            status_code=status.HTTP_201_CREATED
+            status=status.HTTP_201_CREATED
         )
 
     def retrieve(self, request, pk=None):
@@ -150,7 +150,7 @@ class ItemViewSet(mixins.ArcgisAPIMixin,
                 self.account.username,
                 **request.data
             ),
-            status_code=status.HTTP_201_CREATED
+            status=status.HTTP_201_CREATED
         )
 
     def retrieve(self, request, pk=None):
