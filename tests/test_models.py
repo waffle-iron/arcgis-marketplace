@@ -49,19 +49,45 @@ class ModelsTests(TestCase):
         )
 
         account = factories.ExpiredAccountFactory()
-        account.refresh_expired_token()
+        account.api
 
         self.assertFalse(account.is_expired)
         self.assertEqual(account.access_token, 'new!')
 
     @responses.activate
     def test_me(self):
-        add_response('GET', 'community/users/test', body={'test': True})
+        add_response(
+            'GET',
+            'community/users/test',
+            body={'test': True}
+        )
 
         account = factories.AccountFactory()
         account.me()
 
         self.assertTrue(account.test)
+
+    @responses.activate
+    def test_featured_groups(self):
+        add_response(
+            'GET',
+            'portals/self',
+            body={'featuredGroups': []}
+        )
+
+        account = factories.AccountFactory()
+        self.assertIsInstance(account.featured_groups, list)
+
+    @responses.activate
+    def test_subscription_type(self):
+        add_response(
+            'GET',
+            'portals/self',
+            body={'subscriptionInfo': {'type': 'test'}}
+        )
+
+        account = factories.AccountFactory()
+        self.assertEqual(account.subscription_type, 'test')
 
     def test_item_str(self):
         item = factories.ItemFactory()
