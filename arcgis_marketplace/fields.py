@@ -2,13 +2,13 @@ import os.path
 import zipfile
 
 from django.db.models import FileField
-from . import validators as arcgis_validators
+from . import validators
 
 
 class CompressField(FileField):
     default_validators = [
-        arcgis_validators.validate_file_extension,
-        arcgis_validators.validate_zip_compression
+        validators.validate_file_extension,
+        validators.validate_zip_compression
     ]
 
     def pre_save(self, model_instance, add):
