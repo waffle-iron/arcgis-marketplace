@@ -98,3 +98,10 @@ class PaginationTests(APITestCase):
         with(self.settings_pagination('CursorPagination')):
             paginator = arcgis_pagination.ArcgisOffsetPagination()
             self.assertEqual(paginator.get_offset(request), 0)
+
+    def test_pagination_unknown(self):
+        request = self.factory.get('/')
+
+        with(self.settings_pagination('BasePagination')):
+            paginator = arcgis_pagination.ArcgisOffsetPagination()
+            self.assertEqual(paginator.get_offset(request), 0)
