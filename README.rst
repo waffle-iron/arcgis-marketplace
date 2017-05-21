@@ -56,7 +56,9 @@ Hook the Django urls into your URLconf.
 
         url(r'^', include(
             'arcgis_marketplace.api.urls',
-            namespace='arcgis-marketplace-api'))
+            namespace='arcgis-marketplace-api')),
+
+        url(r'^paypal/', include('paypal.standard.ipn.urls'))
     ]
 
 Apply migrations.
