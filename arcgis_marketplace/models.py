@@ -140,7 +140,7 @@ class Item(PolymorphicModel,
 
     def get_absolute_url(self):
         return reverse(
-            'arcgis-marketplace-api:v1:item-detail', args=(self.id.hex,)
+            'arcgis-marketplace-api:v1:product-detail', args=(self.id.hex,)
         )
 
 

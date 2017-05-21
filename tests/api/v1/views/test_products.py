@@ -30,9 +30,7 @@ class ProductViewTests(BaseViewTests):
 
     def test_product_detail_200_OK(self):
         product = factories.ItemFactory(owner=self.account)
-        response = self.client.get(
-            self.reverse('product-detail', args=(product.id.hex,))
-        )
+        response = self.client.get(product.get_absolute_url())
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['id'], product.id.hex)
@@ -40,7 +38,7 @@ class ProductViewTests(BaseViewTests):
     def test_product_update_200_OK(self):
         product = factories.ItemFactory(owner=self.account)
         response = self.client.patch(
-            self.reverse('product-detail', args=(product.id.hex,)), {
+            product.get_absolute_url(), {
                 'title': 'updated'
             })
 
@@ -49,8 +47,6 @@ class ProductViewTests(BaseViewTests):
 
     def test_product_delete_204_NO_CONTENT(self):
         product = factories.ItemFactory(owner=self.account)
-        response = self.client.delete(
-            self.reverse('product-detail', args=(product.id.hex,))
-        )
+        response = self.client.delete(product.get_absolute_url())
 
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
