@@ -28,6 +28,15 @@ class ProductViewTests(BaseViewTests):
 
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
+    def test_product_detail_200_OK(self):
+        product = factories.ItemFactory(owner=self.account)
+        response = self.client.get(
+            self.reverse('product-detail', args=(product.id.hex,))
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['id'], product.id.hex)
+
     def test_product_update_200_OK(self):
         product = factories.ItemFactory(owner=self.account)
         response = self.client.patch(
