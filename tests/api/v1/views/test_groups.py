@@ -25,7 +25,7 @@ class GroupiewTests(BaseViewTests):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     @responses.activate
-    def test_group_create_200_OK(self):
+    def test_group_create_201_CREATED(self):
         add_response(
             'POST',
             'community/createGroup',
@@ -39,7 +39,7 @@ class GroupiewTests(BaseViewTests):
             }
         )
 
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
     @responses.activate
     def test_group_detail_200_OK(self):

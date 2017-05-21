@@ -97,7 +97,10 @@ class GroupViewSet(mixins.ArcgisAPIMixin,
         return self.get_paginated_response(data, request)
 
     def create(self, request, *args, **kwargs):
-        return Response(self.account.api.create_group(**request.data))
+        return Response(
+            self.account.api.create_group(**request.data),
+            status_code=status.HTTP_201_CREATED
+        )
 
     def retrieve(self, request, pk=None):
         return Response(self.account.api.group_detail(pk))
@@ -142,10 +145,13 @@ class ItemViewSet(mixins.ArcgisAPIMixin,
     permission_classes = (permissions.Signed,)
 
     def create(self, request, *args, **kwargs):
-        return Response(self.account.api.add_item(
-            self.account.username,
-            **request.data
-        ))
+        return Response(
+            self.account.api.add_item(
+                self.account.username,
+                **request.data
+            ),
+            status_code=status.HTTP_201_CREATED
+        )
 
     def retrieve(self, request, pk=None):
         return Response(self.account.api.item_detail(pk))

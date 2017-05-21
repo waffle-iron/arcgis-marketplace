@@ -9,7 +9,7 @@ from ...views import BaseViewTests
 class ItemViewTests(BaseViewTests):
 
     @responses.activate
-    def test_item_create_200_OK(self):
+    def test_item_create_201_CREATED(self):
         add_response(
             'POST',
             'content/users/test/addItem',
@@ -23,7 +23,7 @@ class ItemViewTests(BaseViewTests):
             }
         )
 
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertTrue(response.data['success'])
 
     @responses.activate
