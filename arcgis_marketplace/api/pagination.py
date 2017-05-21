@@ -1,5 +1,20 @@
+from rest_framework import exceptions
 from rest_framework import pagination
 from rest_framework.settings import api_settings
+
+
+__all__ = ['ArcgisOffsetPagination']
+
+
+def _page_number_offset(request, page_query_param, page_size):
+    page_number = request.query_params.get(page_query_param, 1)
+
+    try:
+        page_number = int(page_number)
+    except (TypeError, ValueError):
+        page_number = 1
+
+    return (page_number - 1) * page_size
 
 
 class ArcgisOffsetPagination(api_settings.DEFAULT_PAGINATION_CLASS):
@@ -12,20 +27,20 @@ class ArcgisOffsetPagination(api_settings.DEFAULT_PAGINATION_CLASS):
 
     def get_offset(self, request):
         if isinstance(self, pagination.PageNumberPagination):
-            page_number = request.query_params.get(self.page_query_param, 1)
-
-            try:
-                page_number = int(page_number)
-            except (TypeError, ValueError):
-                page_number = 1
-
-            return (page_number - 1) * self.page_size
+            return _page_number_offset(
+                request,
+                self.page_query_param,
+                self.page_size
+            )
 
         elif isinstance(self, pagination.LimitOffsetPagination):
-            return self.get_offset(request)
+            return super().get_offset(request)
 
         elif isinstance(self, pagination.CursorPagination):
-            cursor = self.decode_cursor(request)
+            try:
+                cursor = self.decode_cursor(request)
+            except exceptions.NotFound:
+                cursor = None
 
             if cursor is not None:
                 return cursor[0]
