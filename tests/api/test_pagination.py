@@ -1,9 +1,11 @@
 import importlib
 import random
+import urllib.parse
 
 from django.test.utils import override_settings
 from core_flavor.api.test import APITestCase
 
+from rest_framework import pagination as api_pagination
 from rest_framework.settings import api_settings
 from rest_framework.test import APIRequestFactory
 
@@ -70,6 +72,25 @@ class PaginationTests(APITestCase):
         with(self.settings_pagination('LimitOffsetPagination')):
             pagination = arcgis_pagination.ArcgisOffsetPagination()
             self.assertEqual(pagination.get_page_size(request), limit)
+
+    def test_pagination_cursor(self):
+        with(self.settings_pagination('CursorPagination')):
+            offset = random.randint(1, 10)
+            pagination = arcgis_pagination.ArcgisOffsetPagination()
+            cursor = api_pagination.Cursor(
+                offset=offset,
+                reverse=False,
+                position=0
+            )
+
+            pagination.base_url = ''
+            request = self.factory.get('', dict(
+                urllib.parse.parse_qsl(
+                    pagination.encode_cursor(cursor)[1:]
+                )
+            ))
+
+            self.assertEqual(pagination.get_offset(request), offset)
 
     def test_pagination_cursor_wrong(self):
         request = self.factory.get('/', {'cursor': 'wrong'})
