@@ -57,14 +57,17 @@ class GroupiewTests(BaseViewTests):
         self.assertEqual(response.data['id'], 'test')
 
     @responses.activate
-    def test_group_update_200_OK(self):
+    def test_group_update_200_OK(self, method=None):
         add_response(
             'POST',
             'community/groups/test/update',
             body={'title': 'updated'}
         )
 
-        response = self.client.put(
+        if method is None:
+            method = 'put'
+
+        response = getattr(self.client, method)(
             self.reverse('group-detail', args=('test',)), {
                 'title': 'updated'
             }
@@ -72,6 +75,9 @@ class GroupiewTests(BaseViewTests):
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['title'], 'updated')
+
+    def test_group_partial_update_200_OK(self):
+        self.test_group_update_200_OK('patch')
 
     @responses.activate
     def test_group_delete_204_NO_CONTENT(self):
@@ -86,3 +92,67 @@ class GroupiewTests(BaseViewTests):
         )
 
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
+    @responses.activate
+    def test_group_add_200_OK(self, method=None):
+        users = 'alice,bob'
+
+        add_response(
+            'POST',
+            'community/groups/test/addUsers',
+            body={'added': users.split(',')}
+        )
+
+        response = self.client.post(
+            self.reverse('group-add', args=('test',)), {
+                'users': users
+            }
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    @responses.activate
+    def test_group_invite_200_OK(self, method=None):
+        users = 'alice,bob'
+
+        add_response(
+            'POST',
+            'community/groups/test/invite',
+            body={'success': True}
+        )
+
+        response = self.client.post(
+            self.reverse('group-invite', args=('test',)), {
+                'users': users
+            }
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    @responses.activate
+    def test_group_items_200_OK(self, method=None):
+        add_response(
+            'GET',
+            'content/groups/test',
+            body={'total': 1}
+        )
+
+        response = self.client.get(
+            self.reverse('group-items', args=('test',))
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    @responses.activate
+    def test_group_config_map_200_OK(self, method=None):
+        add_response(
+            'POST',
+            'community/groups/test/update',
+            body={'title': 'updated'}
+        )
+
+        response = self.client.post(
+            self.reverse('group-detail', args=('test',))
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
