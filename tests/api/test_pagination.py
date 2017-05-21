@@ -1,4 +1,4 @@
-import imp
+import importlib
 import random
 
 from django.test.utils import override_settings
@@ -14,7 +14,7 @@ class override_pagination(override_settings):
 
     def enable(self):
         super().enable()
-        imp.reload(arcgis_pagination)
+        importlib.reload(arcgis_pagination)
 
 
 class RequestFactory(APIRequestFactory):
