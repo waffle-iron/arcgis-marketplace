@@ -4,8 +4,7 @@ from social_core.backends.arcgis import ArcGISOAuth2
 from social_core.backends.oauth import OAuthAuth
 
 from arcgis_marketplace import factories
-from arcgis_marketplace.pipeline import update_or_create_account
-from arcgis_marketplace.pipeline import update_token_expiration
+from arcgis_marketplace import pipeline
 
 
 class PipelineTests(TestCase):
@@ -14,14 +13,14 @@ class PipelineTests(TestCase):
         backend = ArcGISOAuth2()
         user = factories.UserFactory()
 
-        update_or_create_account(backend, user, dict(test=True))
+        pipeline.update_or_create_account(backend, user, dict(test=True))
         self.assertTrue(user.account.test)
 
     def test_update_or_create_account_unknown_backend(self):
         backend = OAuthAuth()
         user = factories.UserFactory()
 
-        update_or_create_account(backend, user, dict())
+        pipeline.update_or_create_account(backend, user, dict())
         self.assertFalse(hasattr(user, 'account'))
 
     def test_update_token_expiration(self):
@@ -29,8 +28,8 @@ class PipelineTests(TestCase):
         social_auth = account.social_auth
         social_auth.extra_data = dict(expires_in=1800)
 
-        update_token_expiration(account, social_auth)
+        pipeline.update_token_expiration(account, social_auth)
         self.assertFalse(account.is_expired)
 
     def test_update_token_expiration_missing_account(self):
-        update_token_expiration(account=None)
+        pipeline.update_token_expiration(account=None)
