@@ -68,11 +68,11 @@ Apply migrations.
     python manage.py migrate
 
 
-.. |Pypi| image:: https://img.shields.io/pypi/v/arcgis-marketplace.svg
-   :target: https://pypi.python.org/pypi/arcgis-marketplace
+.. |Pypi| image:: https://img.shields.io/pypi/v/django-arcgis-marketplace.svg
+   :target: https://pypi.python.org/pypi/django-arcgis-marketplace
 
-.. |Wheel| image:: https://img.shields.io/pypi/wheel/arcgis-marketplace.svg
-   :target: https://pypi.python.org/pypi/arcgis-marketplace
+.. |Wheel| image:: https://img.shields.io/pypi/wheel/django-arcgis-marketplace.svg
+   :target: https://pypi.python.org/pypi/django-arcgis-marketplace
 
 .. |Build Status| image:: https://travis-ci.org/flavors/arcgis-marketplace.svg?branch=master
    :target: https://travis-ci.org/flavors/arcgis-marketplace
