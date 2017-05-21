@@ -2,8 +2,8 @@ import responses
 
 from rest_framework import status
 
-from ...shortcuts import add_response
-from ...views import BaseViewTests
+from .shortcuts import add_response
+from .views import BaseViewTests
 
 
 class ExceptionTests(BaseViewTests):
