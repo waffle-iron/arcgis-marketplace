@@ -1,9 +1,9 @@
-import arcgis_sdk
-import json
 import responses
 
 from django.test import TestCase
 from arcgis_marketplace import factories
+
+from .api.shortcuts import add_response
 
 
 class ModelsTests(TestCase):
@@ -39,15 +39,13 @@ class ModelsTests(TestCase):
 
     @responses.activate
     def test_account_refresh_expired_token(self):
-        responses.add(
-            responses.GET,
-            arcgis_sdk.ARCGIS_API_URL + 'oauth2/token/',
-            body=json.dumps({
+        add_response(
+            'GET',
+            'oauth2/token/',
+            body={
                 'access_token': 'new!',
                 'expires_in': 1800
-            }),
-            status=200,
-            content_type='application/json'
+            }
         )
 
         account = factories.ExpiredAccountFactory()
@@ -58,15 +56,7 @@ class ModelsTests(TestCase):
 
     @responses.activate
     def test_me(self):
-        responses.add(
-            responses.GET,
-            arcgis_sdk.ARCGIS_API_URL + 'community/users/test',
-            body=json.dumps({
-                'test': True
-            }),
-            status=200,
-            content_type='application/json'
-        )
+        add_response('GET', 'community/users/test', body={'test': True})
 
         account = factories.AccountFactory()
         account.me()
