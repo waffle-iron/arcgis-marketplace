@@ -45,56 +45,56 @@ class PaginationTests(APITestCase):
         request = self.factory.get('/', {'page': 'wrong'})
 
         with(self.settings_pagination('PageNumberPagination')):
-            pagination = arcgis_pagination.ArcgisOffsetPagination()
-            self.assertEqual(pagination.get_offset(request), 0)
+            paginator = arcgis_pagination.ArcgisOffsetPagination()
+            self.assertEqual(paginator.get_offset(request), 0)
 
     def test_pagination_number_page_size(self):
         page_size = random.randint(10, 100)
         request = self.factory.get('/', {'page_size': page_size})
 
         with(self.settings_pagination('PageNumberPagination')):
-            pagination = arcgis_pagination.ArcgisOffsetPagination()
-            pagination.page_size_query_param = 'page_size'
-            self.assertEqual(pagination.get_page_size(request), page_size)
+            paginator = arcgis_pagination.ArcgisOffsetPagination()
+            paginator.page_size_query_param = 'page_size'
+            self.assertEqual(paginator.get_page_size(request), page_size)
 
     def test_pagination_limit_offset(self):
         offset = random.randint(1, 10)
         request = self.factory.get('/', {'offset': offset})
 
         with(self.settings_pagination('LimitOffsetPagination')):
-            pagination = arcgis_pagination.ArcgisOffsetPagination()
-            self.assertEqual(pagination.get_offset(request), offset)
+            paginator = arcgis_pagination.ArcgisOffsetPagination()
+            self.assertEqual(paginator.get_offset(request), offset)
 
     def test_pagination_limit_page_size(self):
         limit = random.randint(10, 100)
         request = self.factory.get('/', {'limit': limit})
 
         with(self.settings_pagination('LimitOffsetPagination')):
-            pagination = arcgis_pagination.ArcgisOffsetPagination()
-            self.assertEqual(pagination.get_page_size(request), limit)
+            paginator = arcgis_pagination.ArcgisOffsetPagination()
+            self.assertEqual(paginator.get_page_size(request), limit)
 
     def test_pagination_cursor(self):
         with(self.settings_pagination('CursorPagination')):
             offset = random.randint(1, 10)
-            pagination = arcgis_pagination.ArcgisOffsetPagination()
+            paginator = arcgis_pagination.ArcgisOffsetPagination()
             cursor = api_pagination.Cursor(
                 offset=offset,
                 reverse=False,
                 position=0
             )
 
-            pagination.base_url = ''
+            paginator.base_url = ''
             request = self.factory.get('', dict(
                 urllib.parse.parse_qsl(
-                    pagination.encode_cursor(cursor)[1:]
+                    paginator.encode_cursor(cursor)[1:]
                 )
             ))
 
-            self.assertEqual(pagination.get_offset(request), offset)
+            self.assertEqual(paginator.get_offset(request), offset)
 
     def test_pagination_cursor_wrong(self):
         request = self.factory.get('/', {'cursor': 'wrong'})
 
         with(self.settings_pagination('CursorPagination')):
-            pagination = arcgis_pagination.ArcgisOffsetPagination()
-            self.assertEqual(pagination.get_offset(request), 0)
+            paginator = arcgis_pagination.ArcgisOffsetPagination()
+            self.assertEqual(paginator.get_offset(request), 0)
