@@ -132,10 +132,13 @@ class GroupViewSet(mixins.ArcgisAPIMixin,
 
     @detail_route(methods=['post'])
     def config_map(self, request, pk=None):
-        return Response(self.account.api.update_group(pk, {
-            'sortField': 'title',
-            'sortOrder': 'asc'
-        }))
+        return Response(
+            self.account.api.update_group(
+                pk,
+                sortField='title',
+                sortOrder='asc'
+            )
+        )
 
 
 class ItemViewSet(mixins.ArcgisAPIMixin,
