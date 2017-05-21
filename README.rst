@@ -37,8 +37,9 @@ Add ``arcgis_marketplace`` to your INSTALLED_APPS setting.
         'rest_framework',
         'social_django',
         'taggit',
+        ...
         'core_flavor.apps.CoreAppConfig',
-        'arcgis_marketplace.apps.ArcgisMarketplaceAppConfig',
+        'arcgis_marketplace.apps.ArcgisMarketplaceAppConfig'
     )
 
 Hook the Django urls into your URLconf.
