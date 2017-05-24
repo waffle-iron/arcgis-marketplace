@@ -33,8 +33,7 @@ class AccountFactory(factory.django.DjangoModelFactory):
     data = dict(
         access_token='test',
         refresh_token='test',
-        username='test'
-    )
+        username='test')
 
     expired = factory.Faker(
         'date_time_between',
