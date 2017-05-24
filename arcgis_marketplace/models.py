@@ -6,11 +6,11 @@ from django.conf import settings
 from django.contrib.postgres import fields as pg_fields
 from django.core.validators import MinValueValidator
 from django.db import models
-from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
 from core_flavor import models as core_models
+from core_flavor.urls import reverse_host
 from core_flavor.shortcuts import camel_to_dashed
 
 from model_utils import Choices
@@ -49,8 +49,10 @@ class Account(core_models.SoftDeletableModel,
             raise
 
     def get_absolute_url(self):
-        return reverse(
-            'arcgis-marketplace-api:v1:account-detail', args=(self.id.hex,)
+        return reverse_host(
+            'arcgis-marketplace-api:v1:account-detail',
+            args=(self.id.hex,),
+            **arcgis_settings.ARCGIS_REVERSE_EXTRA_KWARGS
         )
 
     @property
@@ -139,8 +141,10 @@ class Item(PolymorphicModel,
         return self.title
 
     def get_absolute_url(self):
-        return reverse(
-            'arcgis-marketplace-api:v1:product-detail', args=(self.id.hex,)
+        return reverse_host(
+            'arcgis-marketplace-api:v1:product-detail',
+            args=(self.id.hex,),
+            **arcgis_settings.ARCGIS_REVERSE_EXTRA_KWARGS
         )
 
 
