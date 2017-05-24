@@ -30,7 +30,7 @@ setup(
     install_requires=[
         'Django>=1.10',
         'arcgis-sdk>=0.0.5',
-        'core-flavor>=0.0.8',
+        'core-flavor>=0.0.10',
         'django-filter>=1.0.2',
         'django-oauth-toolkit>=0.12.0',
         'django-paypal>=0.3.6',
@@ -57,7 +57,7 @@ setup(
     tests_require=[
         'Django>=1.10',
         'arcgis-sdk>=0.0.5',
-        'core-flavor>=0.0.8',
+        'core-flavor>=0.0.10',
         'coverage>=4.4',
         'django-filter>=1.0.2',
         'django-oauth-toolkit>=0.12.0',
