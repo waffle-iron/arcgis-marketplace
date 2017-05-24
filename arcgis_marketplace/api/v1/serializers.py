@@ -9,21 +9,6 @@ from ... import models
 __all__ = ['AccountSerializer', 'ItemSerializer']
 
 
-class AccountSerializer(serializers.ModelSerializer):
-
-    def to_representation(self, instance):
-        data = super().to_representation(instance)
-        data.update(instance.data)
-        return data
-
-    class Meta:
-        model = models.Account
-        fields = ('id',)
-        extra_kwargs = {
-            'id': {'source': 'id.hex'}
-        }
-
-
 class ItemAccountSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -38,6 +23,22 @@ class ItemAccountSerializer(serializers.ModelSerializer):
 
     def build_field(self, field_name, info, model_class, nested_depth):
         return self.build_property_field(field_name, model_class)
+
+
+class AccountSerializer(ItemAccountSerializer):
+
+    def to_representation(self, instance):
+        data = instance.data
+        data.update(super().to_representation(instance))
+        data.update(instance.data)
+        return data
+
+    class Meta:
+        model = models.Account
+        fields = ('id',)
+        extra_kwargs = {
+            'id': {'source': 'id.hex'}
+        }
 
 
 class WebMapingAppSerializer(serializers.ModelSerializer):
