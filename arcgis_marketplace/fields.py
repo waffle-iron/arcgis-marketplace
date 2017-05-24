@@ -13,10 +13,12 @@ class CompressField(FileField):
 
     def pre_save(self, model_instance, add):
         file = super().pre_save(model_instance, add)
-        outpath = os.path.splitext(file.path)[0]
 
-        if not os.path.isdir(outpath) and zipfile.is_zipfile(file):
-            with zipfile.ZipFile(file) as zip_file:
-                zip_file.extractall(outpath)
+        if file._file is not None:
+            outpath = os.path.splitext(file.path)[0]
+
+            if not os.path.isdir(outpath) and zipfile.is_zipfile(file):
+                with zipfile.ZipFile(file) as zip_file:
+                    zip_file.extractall(outpath)
 
         return file
