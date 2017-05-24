@@ -42,7 +42,7 @@ DEFAULT_SETTINGS = dict(
             'rest_framework.filters.SearchFilter'
         ),
         'DEFAULT_PAGINATION_CLASS':
-        'core_flavor.api.pagination.PaginationSerializer',
+        'core_flavor.api.pagination.CursorPageNumberPagination',
         'PAGE_SIZE': 10,
         'TEST_REQUEST_DEFAULT_FORMAT': 'json'
     },
