@@ -28,9 +28,9 @@ setup(
     url='https://github.com/flavors/arcgis-marketplace/',
     packages=find_packages(exclude=['tests*']),
     install_requires=[
-        'Django>=1.10',
+        'Django>=1.11',
         'arcgis-sdk>=0.0.5',
-        'core-flavor>=0.0.10',
+        'core-flavor>=0.0.11',
         'django-filter>=1.0.2',
         'django-oauth-toolkit>=0.12.0',
         'django-paypal>=0.3.6',
@@ -55,9 +55,9 @@ setup(
     ],
     zip_safe=False,
     tests_require=[
-        'Django>=1.10',
+        'Django>=1.11',
         'arcgis-sdk>=0.0.5',
-        'core-flavor>=0.0.10',
+        'core-flavor>=0.0.11',
         'coverage>=4.4',
         'django-filter>=1.0.2',
         'django-oauth-toolkit>=0.12.0',

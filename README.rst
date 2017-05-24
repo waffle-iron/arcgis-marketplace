@@ -10,7 +10,7 @@ Dependencies
 ------------
 
 * Python ≥ 3.4
-* Django ≥ 1.10
+* Django ≥ 1.11
 * Postgres
 
 
