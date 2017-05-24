@@ -44,7 +44,7 @@ class Account(core_models.SoftDeletableModel,
         try:
             return super().__getattribute__(attr)
         except AttributeError:
-            if attr in self.data:
+            if not attr.startswith('_') and attr in self.data:
                 return self.data[attr]
             raise
 
