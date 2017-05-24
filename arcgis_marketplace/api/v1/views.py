@@ -30,6 +30,8 @@ class MeViewSet(mixins.ArcgisAPIMixin,
                 mixins.ArcgisPaginationMixin,
                 viewsets.ViewSet):
 
+    permission_classes = (permissions.Signed,)
+
     def list(self, request, *args, **kwargs):
         return Response(self.account.me())
 
@@ -50,6 +52,8 @@ class MeViewSet(mixins.ArcgisAPIMixin,
 class SelfViewSet(mixins.ArcgisAPIMixin,
                   mixins.ArcgisPaginationMixin,
                   viewsets.ViewSet):
+
+    permission_classes = (permissions.Signed,)
 
     def list(self, request, *args, **kwargs):
         return Response(self.account.self())
