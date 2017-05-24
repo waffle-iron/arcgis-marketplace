@@ -10,7 +10,6 @@ __all__ = ['AccountSerializer', 'ItemSerializer']
 
 
 class AccountSerializer(serializers.ModelSerializer):
-    id = serializers.UUIDField(source='id.hex', read_only=True)
 
     def to_representation(self, instance):
         data = super().to_representation(instance)
@@ -20,16 +19,22 @@ class AccountSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Account
         fields = ('id',)
+        extra_kwargs = {
+            'id': {'source': 'id.hex'}
+        }
 
 
 class ItemAccountSerializer(serializers.ModelSerializer):
-    id = serializers.UUIDField(source='id.hex', read_only=True)
 
     class Meta:
         model = models.Account
         fields = (
             'id', 'username', 'first_name', 'last_name', 'thumbnail', 'region'
         )
+
+        extra_kwargs = {
+            'id': {'source': 'id.hex'}
+        }
 
     def build_field(self, field_name, info, model_class, nested_depth):
         return self.build_property_field(field_name, model_class)
@@ -39,7 +44,10 @@ class WebMapingAppSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.WebMapingApp
-        fields = ('purpose', 'api')
+        fields = ('purpose', 'api', 'file')
+        extra_kwargs = {
+            'file': {'write_only': True}
+        }
 
 
 class ItemSerializer(core_serializers.PolymorphicSerializer):
