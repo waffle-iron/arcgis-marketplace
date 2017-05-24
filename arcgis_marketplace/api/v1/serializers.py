@@ -22,7 +22,8 @@ class AccountSerializer(serializers.ModelSerializer):
         fields = ('id',)
 
 
-class ItemAccountSerializer(AccountSerializer):
+class ItemAccountSerializer(serializers.ModelSerializer):
+    id = serializers.UUIDField(source='id.hex', read_only=True)
 
     class Meta:
         model = models.Account
@@ -38,7 +39,7 @@ class WebMapingAppSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.WebMapingApp
-        fields = ('purpose', 'file', 'api')
+        fields = ('purpose', 'api')
 
 
 class ItemSerializer(core_serializers.PolymorphicSerializer):
