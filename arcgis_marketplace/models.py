@@ -5,6 +5,7 @@ from dateutil.relativedelta import relativedelta
 from django.conf import settings
 from django.contrib.postgres import fields as pg_fields
 from django.core.validators import MinValueValidator
+from django.core.validators import RegexValidator
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
@@ -15,6 +16,8 @@ from core_flavor.shortcuts import camel_to_dashed
 
 from model_utils import Choices
 from polymorphic.models import PolymorphicModel
+from sorl.thumbnail import ImageField
+
 from taggit import models as taggit_models
 from taggit.managers import TaggableManager
 
@@ -131,6 +134,14 @@ class Item(PolymorphicModel,
     description = models.TextField(_('description'), blank=True)
     price = models.FloatField(_('price'), validators=[MinValueValidator(0)])
 
+    image = ImageField(
+        _('image'),
+        blank=True,
+        upload_to=core_models.UUIDUploadTo(
+            arcgis_settings.ARCGIS_UPLOAD_THUMBNAILS_TO
+        )
+    )
+
     objects = managers.ItemManager()
     tags = TaggableManager(blank=True, through=GenericUUIDTaggedItem)
 
@@ -156,6 +167,7 @@ class PurposeItem(Item):
         ('code_sample', _('Code sample')))
 
     purpose = models.CharField(_('purpose'), choices=PURPOSES, max_length=32)
+    configuration = models.TextField(_('configuration'))
 
     class Meta:
         abstract = True
@@ -170,6 +182,7 @@ class WebMapingApp(PurposeItem):
         ('other', _('Other')))
 
     api = models.CharField(_('api'), choices=APIS, max_length=32)
+
     file = fields.CompressField(
         upload_to=core_models.UUIDUploadTo(
             arcgis_settings.ARCGIS_UPLOAD_ITEM_TO

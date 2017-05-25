@@ -37,8 +37,10 @@ setup(
         'django-polymorphic>=1.2',
         'django-taggit>=0.22.1',
         'djangorestframework>=3.5.0',
+        'Pillow>=4.1.1',
         'psycopg2>=2.6.2',
-        'social-auth-app-django>=1.2.0'
+        'social-auth-app-django>=1.2.0',
+        'sorl-thumbnail>=12.3'
     ],
     classifiers=[
         'Development Status :: 1 - Planning',
@@ -67,9 +69,11 @@ setup(
         'djangorestframework>=3.5.0',
         'factory-boy>=2.8.1',
         'Faker>=0.7.11',
+        'Pillow>=4.1.1',
         'psycopg2>=2.6.2',
         'responses>=0.5.1',
-        'social-auth-app-django>=1.2.0'
+        'social-auth-app-django>=1.2.0',
+        'sorl-thumbnail>=12.3'
     ],
     package_data={
         'arcgis_marketplace': [

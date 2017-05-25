@@ -1,5 +1,6 @@
 from django.contrib import admin
 from polymorphic import admin as polymorphic_admin
+from sorl.thumbnail.admin import AdminImageMixin
 
 from . import models
 
@@ -31,7 +32,9 @@ class AccountAdmin(admin.ModelAdmin):
 
 
 @admin.register(models.Item)
-class ItemAdmin(polymorphic_admin.PolymorphicParentModelAdmin):
+class ItemAdmin(AdminImageMixin,
+                polymorphic_admin.PolymorphicParentModelAdmin):
+
     base_model = models.Item
     child_models = (models.WebMapingApp,)
 
