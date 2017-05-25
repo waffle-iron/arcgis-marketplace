@@ -1,3 +1,6 @@
+.. image:: https://badge.waffle.io/flavors/arcgis-marketplace.png?label=ready&title=Ready 
+ :target: https://waffle.io/flavors/arcgis-marketplace?utm_source=badge
+ :alt: 'Stories in Ready'
 Django Arcgis Marketplace
 =========================
 
