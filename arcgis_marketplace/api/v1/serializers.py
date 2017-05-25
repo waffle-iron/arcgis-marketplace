@@ -45,7 +45,7 @@ class WebMapingAppSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.WebMapingApp
-        fields = ('purpose', 'api', 'file')
+        fields = ('purpose', 'api', 'file', 'configuration')
         extra_kwargs = {
             'file': {'write_only': True}
         }
@@ -59,8 +59,8 @@ class ItemSerializer(core_serializers.PolymorphicSerializer):
     class Meta:
         model = models.Item
         fields = (
-            'id', 'owner', 'title', 'description', 'price',
-            'modified', 'created'
+            'id', 'owner', 'title', 'description', 'price', 'image',
+            'youtube_url', 'modified', 'created'
         )
 
         child_serializers = (

@@ -142,6 +142,17 @@ class Item(PolymorphicModel,
         )
     )
 
+    youtube_url = models.CharField(
+        blank=True,
+        max_length=200,
+        validators=[
+            RegexValidator(
+                regex=r'^(https?\:\/\/)?(www\.youtube\.com|youtu\.?be)\/.+$',
+                message=_('Invalid youtube url')
+            )
+        ]
+    )
+
     objects = managers.ItemManager()
     tags = TaggableManager(blank=True, through=GenericUUIDTaggedItem)
 
